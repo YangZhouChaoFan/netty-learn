@@ -26,7 +26,7 @@ public class NettyClientHandler extends ChannelHandlerAdapter {
      */
     @Override
     public void connect(ChannelHandlerContext ctx, SocketAddress remoteAddress, SocketAddress localAddress, ChannelPromise promise) throws Exception {
-        logger.info(ctx.channel().remoteAddress() + "：连接通道");
+        logger.info(remoteAddress + "：连接通道");
         super.connect(ctx, remoteAddress, localAddress, promise);
     }
 
@@ -40,6 +40,7 @@ public class NettyClientHandler extends ChannelHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         logger.info(ctx.channel().remoteAddress() + "：通道激活");
         super.channelActive(ctx);
+        ctx.writeAndFlush("你好\r\n");
     }
 
     /**
@@ -99,6 +100,5 @@ public class NettyClientHandler extends ChannelHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         logger.info("异常信息：" + cause.getMessage());
-        super.exceptionCaught(ctx, cause);
     }
 }
