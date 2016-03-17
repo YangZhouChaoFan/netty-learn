@@ -8,7 +8,6 @@ public class NettyServerTest {
 
     static private Logger logger = LoggerFactory.getLogger(NettyServerTest.class);
 
-
     @Test
     public void test() {
         try {
