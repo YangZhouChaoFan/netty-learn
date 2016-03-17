@@ -5,6 +5,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 服务器测试类.
+ */
 public class NettyServerTest {
 
     static private Logger logger = LoggerFactory.getLogger(NettyServerTest.class);
