@@ -1,8 +1,12 @@
 package com.netty.start.server;
 
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
+import io.netty.channel.group.ChannelGroup;
+import io.netty.channel.group.DefaultChannelGroup;
+import io.netty.util.concurrent.GlobalEventExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +18,9 @@ import java.net.SocketAddress;
 public class NettyServerHandler extends ChannelHandlerAdapter {
 
     static private Logger logger = LoggerFactory.getLogger(NettyServerHandler.class);
+
+    //创建频道组
+    public static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
     /**
      * 连接通道.
@@ -41,6 +48,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
         logger.info(ctx.channel().remoteAddress() + "：通道激活");
         super.channelActive(ctx);
         ctx.writeAndFlush("欢迎访问服务器\r\n");
+        channels.add(ctx.channel());
     }
 
     /**
@@ -53,6 +61,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         logger.info(ctx.channel().remoteAddress() + "：通道失效");
         super.channelInactive(ctx);
+        channels.remove(ctx.channel());
     }
 
     /**
@@ -65,6 +74,12 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         logger.info(ctx.channel().remoteAddress() + "：" + msg);
+        Channel currentChannel = ctx.channel();
+        for (Channel channel : channels) {
+            if (channel != currentChannel) {
+                channel.writeAndFlush("[" + currentChannel.remoteAddress() + "]" + msg + "\n");
+            }
+        }
     }
 
     /**
