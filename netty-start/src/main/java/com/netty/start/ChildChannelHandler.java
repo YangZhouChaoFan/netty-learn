@@ -1,19 +1,38 @@
 package com.netty.start;
 
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.Delimiters;
+import io.netty.handler.codec.LineBasedFrameDecoder;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * 客户端处理类
+ * 客户端通道处理类.
  */
 public class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
 
+    static private Logger logger = LoggerFactory.getLogger(ChildChannelHandler.class);
+
     @Override
     protected void initChannel(SocketChannel e) throws Exception {
-        //打印客户端信息
-        System.out.println("发现新客户端");
-        System.out.println("IP:" + e.remoteAddress().getHostName());
-        System.out.println("Port:" + e.remoteAddress().getPort());
+
+        logger.info(e.remoteAddress() + "：进入通道");
+
+
+        ChannelPipeline pipeline = e.pipeline();
+
+        // 以("\n")为结尾分割的 解码器
+        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(1024, Delimiters.lineDelimiter()));
+        // 字符串解码 和 编码
+        pipeline.addLast("decoder", new StringDecoder());
+        pipeline.addLast("encoder", new StringEncoder());
+        //添加消息处理
+        e.pipeline().addLast(new NettyServerHandler());
 
     }
 

@@ -9,7 +9,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 
 /**
- * 服务器类
+ * 服务器类.
  */
 public class NettyServer {
 
