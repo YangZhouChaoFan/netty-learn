@@ -17,6 +17,7 @@ public class NettyClientHandler extends ChannelHandlerAdapter {
 
     /**
      * 连接通道.
+     *
      * @param ctx
      * @param remoteAddress
      * @param localAddress
@@ -31,6 +32,7 @@ public class NettyClientHandler extends ChannelHandlerAdapter {
 
     /**
      * 活跃通道.
+     *
      * @param ctx
      * @throws Exception
      */
@@ -42,6 +44,7 @@ public class NettyClientHandler extends ChannelHandlerAdapter {
 
     /**
      * 非活跃通道.
+     *
      * @param ctx
      * @throws Exception
      */
@@ -53,6 +56,7 @@ public class NettyClientHandler extends ChannelHandlerAdapter {
 
     /**
      * 接收消息.
+     *
      * @param ctx
      * @param msg
      * @throws Exception
@@ -64,6 +68,7 @@ public class NettyClientHandler extends ChannelHandlerAdapter {
 
     /**
      * 接收完毕.
+     *
      * @param ctx
      * @throws Exception
      */
@@ -74,6 +79,7 @@ public class NettyClientHandler extends ChannelHandlerAdapter {
 
     /**
      * 关闭通道.
+     *
      * @param ctx
      * @param promise
      * @throws Exception
@@ -85,6 +91,7 @@ public class NettyClientHandler extends ChannelHandlerAdapter {
 
     /**
      * 异常处理.
+     *
      * @param ctx
      * @param cause
      * @throws Exception
