@@ -40,7 +40,6 @@ public class NettyClientHandler extends ChannelHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         logger.info(ctx.channel().remoteAddress() + "：通道激活");
         super.channelActive(ctx);
-        ctx.writeAndFlush("你好\r\n");
     }
 
     /**
