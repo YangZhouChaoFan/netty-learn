@@ -1,4 +1,4 @@
-package com.netty.io.tansport;
+package com.netty.io.transport;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
