@@ -49,4 +49,9 @@ public class NettyNIOServer {
             group.shutdownGracefully();
         }
     }
+
+    public static void main(String[] args) throws Exception {
+        new NettyNIOServer().server(3000);
+    }
+
 }

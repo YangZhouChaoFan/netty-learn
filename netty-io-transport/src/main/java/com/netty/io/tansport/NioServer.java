@@ -71,4 +71,7 @@ public class NIOServer {
         }
     }
 
+    public static void main(String[] args) throws Exception {
+        new NIOServer().server(3000);
+    }
 }

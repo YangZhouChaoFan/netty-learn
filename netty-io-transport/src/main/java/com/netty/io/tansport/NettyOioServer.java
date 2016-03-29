@@ -50,4 +50,8 @@ public class NettyOIOServer {
         }
     }
 
+    public static void main(String[] args) throws Exception {
+        new NettyOIOServer().server(3000);
+    }
+
 }
